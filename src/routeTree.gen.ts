@@ -9,12 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SimulatorRouteImport } from './routes/simulator'
 import { Route as PricesRouteImport } from './routes/prices'
 import { Route as ConceptsRouteImport } from './routes/concepts'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiPricesRouteImport } from './routes/api/prices'
 
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SimulatorRoute = SimulatorRouteImport.update({
   id: '/simulator',
   path: '/simulator',
@@ -46,6 +52,7 @@ export interface FileRoutesByFullPath {
   '/concepts': typeof ConceptsRoute
   '/prices': typeof PricesRoute
   '/simulator': typeof SimulatorRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/prices': typeof ApiPricesRoute
 }
 export interface FileRoutesByTo {
@@ -53,6 +60,7 @@ export interface FileRoutesByTo {
   '/concepts': typeof ConceptsRoute
   '/prices': typeof PricesRoute
   '/simulator': typeof SimulatorRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/prices': typeof ApiPricesRoute
 }
 export interface FileRoutesById {
@@ -61,14 +69,34 @@ export interface FileRoutesById {
   '/concepts': typeof ConceptsRoute
   '/prices': typeof PricesRoute
   '/simulator': typeof SimulatorRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/prices': typeof ApiPricesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/concepts' | '/prices' | '/simulator' | '/api/prices'
+  fullPaths:
+    | '/'
+    | '/concepts'
+    | '/prices'
+    | '/simulator'
+    | '/sitemap.xml'
+    | '/api/prices'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/concepts' | '/prices' | '/simulator' | '/api/prices'
-  id: '__root__' | '/' | '/concepts' | '/prices' | '/simulator' | '/api/prices'
+  to:
+    | '/'
+    | '/concepts'
+    | '/prices'
+    | '/simulator'
+    | '/sitemap.xml'
+    | '/api/prices'
+  id:
+    | '__root__'
+    | '/'
+    | '/concepts'
+    | '/prices'
+    | '/simulator'
+    | '/sitemap.xml'
+    | '/api/prices'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -76,11 +104,19 @@ export interface RootRouteChildren {
   ConceptsRoute: typeof ConceptsRoute
   PricesRoute: typeof PricesRoute
   SimulatorRoute: typeof SimulatorRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ApiPricesRoute: typeof ApiPricesRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/simulator': {
       id: '/simulator'
       path: '/simulator'
@@ -124,6 +160,7 @@ const rootRouteChildren: RootRouteChildren = {
   ConceptsRoute: ConceptsRoute,
   PricesRoute: PricesRoute,
   SimulatorRoute: SimulatorRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   ApiPricesRoute: ApiPricesRoute,
 }
 export const routeTree = rootRouteImport
