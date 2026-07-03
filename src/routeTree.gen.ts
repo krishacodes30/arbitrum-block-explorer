@@ -9,10 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PricesRouteImport } from './routes/prices'
 import { Route as ConceptsRouteImport } from './routes/concepts'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiPricesRouteImport } from './routes/api/prices'
 
+const PricesRoute = PricesRouteImport.update({
+  id: '/prices',
+  path: '/prices',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ConceptsRoute = ConceptsRouteImport.update({
   id: '/concepts',
   path: '/concepts',
@@ -32,35 +38,46 @@ const ApiPricesRoute = ApiPricesRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/concepts': typeof ConceptsRoute
+  '/prices': typeof PricesRoute
   '/api/prices': typeof ApiPricesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/concepts': typeof ConceptsRoute
+  '/prices': typeof PricesRoute
   '/api/prices': typeof ApiPricesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/concepts': typeof ConceptsRoute
+  '/prices': typeof PricesRoute
   '/api/prices': typeof ApiPricesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/concepts' | '/api/prices'
+  fullPaths: '/' | '/concepts' | '/prices' | '/api/prices'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/concepts' | '/api/prices'
-  id: '__root__' | '/' | '/concepts' | '/api/prices'
+  to: '/' | '/concepts' | '/prices' | '/api/prices'
+  id: '__root__' | '/' | '/concepts' | '/prices' | '/api/prices'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ConceptsRoute: typeof ConceptsRoute
+  PricesRoute: typeof PricesRoute
   ApiPricesRoute: typeof ApiPricesRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/prices': {
+      id: '/prices'
+      path: '/prices'
+      fullPath: '/prices'
+      preLoaderRoute: typeof PricesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/concepts': {
       id: '/concepts'
       path: '/concepts'
@@ -88,6 +105,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ConceptsRoute: ConceptsRoute,
+  PricesRoute: PricesRoute,
   ApiPricesRoute: ApiPricesRoute,
 }
 export const routeTree = rootRouteImport
