@@ -48,5 +48,5 @@ Open **http://localhost:8080** in your browser.
 ## Submission
 
 - **Batch:** Arbitrum Builder Pods
-- **Author:** Hetvi Patel
-- **GitHub:** https://github.com/HetviPatel18/Code-crafters
+- **Author:** Krisha Patel
+- **GitHub:** https://github.com/krishacodes30/arbitrum-block-explorer
