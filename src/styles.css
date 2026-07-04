@@ -1,0 +1,112 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * ChainScope design system.
+ * Signature stack:
+ *  - Space Grotesk (display)
+ *  - Plus Jakarta Sans (body)
+ *  - JetBrains Mono (data: hashes, nonces, prices)
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-card: var(--surface);
+  --color-card-foreground: var(--foreground);
+  --color-popover: var(--surface);
+  --color-popover-foreground: var(--foreground);
+  --color-primary: var(--accent-arb);
+  --color-primary-foreground: #041322;
+  --color-secondary: var(--surface);
+  --color-secondary-foreground: var(--foreground);
+  --color-muted: var(--surface);
+  --color-muted-foreground: var(--text-muted);
+  --color-accent: var(--accent-arb);
+  --color-accent-foreground: #041322;
+  --color-destructive: var(--danger);
+  --color-destructive-foreground: #fff;
+  --color-border: var(--border);
+  --color-input: var(--border);
+  --color-ring: var(--accent-arb);
+
+  --color-arb: var(--accent-arb);
+  --color-violet: var(--accent-violet);
+  --color-success: var(--success);
+  --color-danger: var(--danger);
+}
+
+:root {
+  --radius: 0.75rem;
+  --background: #0f172a; /* slate-900 */
+  --surface: #1e293b; /* slate-800 */
+  --border: #334155; /* slate-700 */
+  --foreground: #e2e8f0; /* slate-200 */
+  --text-muted: #94a3b8; /* slate-400 */
+  --accent-arb: #38bdf8; /* sky-400 */
+  --accent-violet: #818cf8; /* indigo-400 */
+  --success: #34d399; /* emerald-400 */
+  --danger: #ef4444; /* red-500 */
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html,
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent-arb);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+@utility font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+@utility font-data {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+@utility text-gradient-hero {
+  background-image: linear-gradient(90deg, #ffffff 0%, #cbd5e1 45%, #28a0f0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
